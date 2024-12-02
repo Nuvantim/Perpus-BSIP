@@ -1,0 +1,62 @@
+models:
+  Pengunjung :
+    id : id
+    nama : string nullable
+    instansi : string nullable
+    alamat : string nullable
+    jenis_kelamin : string nullable
+    tujuan : string nullable
+    tanggal : date
+
+  NominalDenda :
+    id : id
+    nominal : integer 
+
+  Kategori :
+    id : id
+    nama : string
+  
+  Rak :
+    id : id
+    nama : string
+
+  Buku :
+    id : uuid unique
+    kategori_id : foreign
+    rak_id : foreign
+    sampul : string nullable
+    isbn : string nullable
+    judul : string nullable
+    penerbit : string nullable
+    penulis : string nullable
+    tahun : integer nullable
+    isi : integer nullable
+    jumlah : integer nullable
+    tanggal_masuk : date
+    no_induk : string nullable
+    rf_id : string nullable
+    no_barcode : string nullable
+    peroleh : string nullable
+    relationships :
+      belongsTo : Rak,Kategori
+
+  Pinjam :
+    id : uuid unique
+    nama : string nullable
+    status : integer 
+    tgl_pinjam : date nullable
+    lama_pinjam : integer nullable
+    tgl_balik : date nullable
+    tgl_kembali : date nullable
+    denda : number nullable
+
+  Pinjaman :
+    id : id
+    pinjam_id : uuid foreign
+    buku_id : uuid foreign
+    relationships:
+      belongsTo : Pinjam,Buku
+  
+
+
+
