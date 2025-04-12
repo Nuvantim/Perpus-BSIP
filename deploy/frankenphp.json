@@ -1,0 +1,5 @@
+{
+	"address": "80",
+	"workers":"auto",
+	"document_root" : "/var/www/html"
+}

@@ -1,34 +1,44 @@
-FROM php:8.1-fpm
+FROM php:8.2-fpm
+FROM dunglas/frankenphp
 
-# Install system dependencies dan ekstensi PHP
+# Install dependencies
 RUN apt-get update && apt-get install -y \
-    git curl libpq-dev zip unzip libonig-dev libxml2-dev \
-    && docker-php-ext-install pdo pdo_pgsql mbstring xml
+    nginx \
+    git \
+    curl \
+    zip \
+    unzip \
+    libpq-dev \
+    libzip-dev \
+    && docker-php-ext-install pdo pdo_pgsql zip
 
 # Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php && \
+mv composer.phar /usr/local/bin/composer
 
-# Set working directory
-WORKDIR /var/www
+#Set Working Directory
+WORKDIR /var/www/html
 
-# Copy dependency-related files dulu untuk cache layer
-COPY composer.json composer.lock ./
-
-# Install dependencies (tanpa dev, untuk production)
-RUN composer install --no-dev --optimize-autoloader
-
-# Salin seluruh project Laravel
+# Copy app code
 COPY . .
 
-# Set proper permissions
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www
+# Set permission folder
+RUN chown -R www-data:www-data /var/www/html
+
+# Set permission public folder
+RUN chmod -R 755 /var/www/html
+RUN chmod -R 777 /var/www/html/storage
 
 # Copy entrypoint
-COPY docker/entrypoint.sh /entrypoint.sh
+COPY deploy/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-EXPOSE 9000
+# Copy Frankenphp configuration
+COPY deploy/frankenphp.json /etc/frankenphp.json
+
+# Set working directory
+WORKDIR /var/www/html
+
 
 ENTRYPOINT ["/entrypoint.sh"]
 
