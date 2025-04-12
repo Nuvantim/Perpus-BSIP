@@ -4,6 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: perpus_file
+    pull_policy: never
     container_name: perpus_app
     restart: always
     ports:
