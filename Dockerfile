@@ -1,5 +1,5 @@
 FROM php:8.2-fpm
-FROM dunglas/frankenphp:sha-627f817-php8.2
+FROM dunglas/frankenphp:1.5-php8.2.28-alpine
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
