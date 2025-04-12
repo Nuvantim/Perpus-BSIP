@@ -1,9 +1,8 @@
 FROM php:8.2-fpm
-FROM dunglas/frankenphp
+FROM dunglas/frankenphp:sha-627f817-php8.2
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
-    nginx \
     git \
     curl \
     zip \
@@ -35,10 +34,10 @@ RUN chmod +x /entrypoint.sh
 
 # Copy Frankenphp configuration
 COPY deploy/frankenphp.json /etc/frankenphp.json
+RUN chmod +x /etc/frankenphp.json
 
 # Set working directory
 WORKDIR /var/www/html
 
-
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/entrypoint.sh"]
 
