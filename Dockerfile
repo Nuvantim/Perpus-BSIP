@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.2-fpm-alpine
 FROM dunglas/frankenphp:1.5-php8.2.28-alpine
 
 # Install dependencies
@@ -38,6 +38,8 @@ RUN chmod +x /etc/frankenphp.json
 
 # Set working directory
 WORKDIR /var/www/html
+
+USER root
 
 CMD ["/entrypoint.sh"]
 
