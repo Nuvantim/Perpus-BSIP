@@ -1,21 +1,20 @@
-FROM php:8.2-fpm-alpine
 FROM dunglas/frankenphp:1.5-php8.2.28-alpine
 
-# Install dependencies
-RUN apt-get update && apt-get install -y \
+# Install dependencies using apk (Alpine's package manager)
+RUN apk update && apk add --no-cache \
     git \
     curl \
     zip \
     unzip \
-    libpq-dev \
+    postgresql-dev \
     libzip-dev \
     && docker-php-ext-install pdo pdo_pgsql zip
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
-mv composer.phar /usr/local/bin/composer
+    mv composer.phar /usr/local/bin/composer
 
-#Set Working Directory
+# Set Working Directory
 WORKDIR /var/www/html
 
 # Copy app code
@@ -40,6 +39,4 @@ RUN chmod +x /etc/frankenphp.json
 WORKDIR /var/www/html
 
 USER root
-
 CMD ["/entrypoint.sh"]
-
