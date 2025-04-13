@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: perpus_file
+    image: perpus_dev
     pull_policy: never
     container_name: perpus_app
     restart: unless-stopped
