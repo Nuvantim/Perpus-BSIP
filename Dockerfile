@@ -13,16 +13,22 @@ RUN apk update && apk add --no-cache \
     php82-xml \
     php82-curl \
     php82-tokenizer \
+    php82-dom \
+    php82-fileinfo \
+    php82-session \
+    php82-simplexml \
+    php82-xmlwriter \
+    php82-xmlreader \
+    php82-ctype \
+    php82-json \
     git \
     curl \
     zip \
-    unzip \
-    postgresql-dev \
-    libzip-dev \
-    bash && \
-    echo "extension=pdo_pgsql" > /etc/php82/conf.d/50_pdo_pgsql.ini && \
-    echo "extension=pgsql" > /etc/php82/conf.d/50_pgsql.ini
-    
+    unzip
+
+# Verification extension pdo_pgsql
+RUN php -m | grep pdo_pgsql
+
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
