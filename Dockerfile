@@ -39,9 +39,8 @@ RUN chmod +x /etc/frankenphp.json
 # Set root access
 USER root
 
-# Run the install script once during the build process
+# Change permission script once during the build process
 RUN chmod +x install.sh
-RUN ./install.sh
 
 
 CMD ["/entrypoint.sh"]
