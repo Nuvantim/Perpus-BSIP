@@ -16,16 +16,9 @@ services:
         condition: service_healthy
     networks:
       - laravel-network
-    environment:
-      DB_CONNECTION: pgsql
-      DB_HOST: perpus_db
-      DB_PORT: 5432
-      DB_DATABASE: perpus
-      DB_USERNAME: postgres
-      DB_PASSWORD: admin123
 
   db:
-    image: postgres
+    image: postgres:10.23-alpine
     container_name: perpus_db
     restart: unless-stopped
     environment:
