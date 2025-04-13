@@ -1,5 +1,5 @@
 FROM dunglas/frankenphp:1.5-php8.2.28-alpine
-FROM php:8.2.28-cli
+FROM php:8.2.28-cli-alpine3.21
 
 # Install dependencies using apk (Alpine's package manager)
 RUN apk update && apk add --no-cache \
