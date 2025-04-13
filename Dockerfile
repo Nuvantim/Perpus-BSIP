@@ -26,9 +26,6 @@ RUN apk update && apk add --no-cache \
     zip \
     unzip
 
-# Verification extension pdo_pgsql
-RUN php -m | grep pdo_pgsql
-
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
