@@ -6,7 +6,7 @@ services:
     image: perpus_file
     pull_policy: never
     container_name: perpus_app
-    restart: always
+    restart: unless-stopped
     ports:
       - "8989:8989"
     volumes:
@@ -18,7 +18,7 @@ services:
   db:
     image: postgres
     container_name: perpus_db
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin123
