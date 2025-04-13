@@ -6,6 +6,7 @@ RUN apk update && apk add --no-cache \
     php82-cli \
     php82-pdo \
     php82-pdo_pgsql \
+    php82-pgsql \
     php82-mbstring \
     php82-openssl \
     php82-zip \
@@ -18,8 +19,10 @@ RUN apk update && apk add --no-cache \
     unzip \
     postgresql-dev \
     libzip-dev \
-    bash
-
+    bash && \
+    echo "extension=pdo_pgsql" > /etc/php82/conf.d/50_pdo_pgsql.ini && \
+    echo "extension=pgsql" > /etc/php82/conf.d/50_pgsql.ini
+    
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
