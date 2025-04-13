@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile
     image: perpus_dev
     container_name: perpus_app
+    pull_policy: never
     restart: unless-stopped
     ports:
       - "8989:8989"
