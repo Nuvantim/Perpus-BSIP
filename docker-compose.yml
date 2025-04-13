@@ -4,7 +4,6 @@ services:
       context: .
       dockerfile: Dockerfile
     image: perpus_dev
-    pull_policy: never
     container_name: perpus_app
     restart: unless-stopped
     ports:
@@ -12,9 +11,11 @@ services:
     volumes:
       - ./:/var/www/html
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - laravel-network
+
   db:
     image: postgres
     container_name: perpus_db
@@ -29,6 +30,11 @@ services:
       - postgres-data:/var/lib/postgresql/data
     networks:
       - laravel-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   postgres-data:
