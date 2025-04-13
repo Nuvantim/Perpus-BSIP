@@ -2,15 +2,22 @@ FROM dunglas/frankenphp:1.5-php8.2.28-alpine
 
 # Install dependencies using apk (Alpine's package manager)
 RUN apk update && apk add --no-cache \
-    php \
-    php-cli \
+    php82 \
+    php82-cli \
+    php82-pdo \
+    php82-pdo_pgsql \
+    php82-mbstring \
+    php82-openssl \
+    php82-zip \
+    php82-xml \
+    php82-curl \
+    php82-tokenizer \
     git \
     curl \
     zip \
     unzip \
     postgresql-dev \
-    libzip-dev \
-    && docker-php-ext-install pdo pdo_pgsql zip
+    libzip-dev
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
