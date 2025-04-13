@@ -1,4 +1,5 @@
 FROM dunglas/frankenphp:1.5-php8.2.28-alpine
+FROM php:8.2.28-cli
 
 # Install dependencies using apk (Alpine's package manager)
 RUN apk update && apk add --no-cache \
@@ -43,7 +44,7 @@ RUN composer install && \
     rm -rf /var/www/html/vendor && \
     # Run component deploy
     composer install --no-dev --optimize-autoloader && \
-    php artisan migrate --seed --force && \
+    php artisan migrate:fresh --seed --force && \
     # Remove cache
     php artisan config:cache && \
     php artisan event:cache && \
