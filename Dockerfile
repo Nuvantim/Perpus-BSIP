@@ -35,8 +35,22 @@ RUN chmod +x /entrypoint.sh
 COPY deploy/frankenphp.json /etc/frankenphp.json
 RUN chmod +x /etc/frankenphp.json
 
-# Set working directory
-WORKDIR /var/www/html
-
+# Set root access
 USER root
+
+RUN composer install && \
+    php artisan blueprint:build && \
+    rm -rf /var/www/html/vendor && \
+    # Run component deploy
+    composer install --no-dev --optimize-autoloader && \
+    php artisan migrate --seed --force && \
+    # Remove cache
+    php artisan config:cache && \
+    php artisan event:cache && \
+    php artisan route:cache && \
+    php artisan view:cache && \
+    # Final configuration 
+    php artisan storage:link && \
+    php artisan key:generate
+
 CMD ["/entrypoint.sh"]
