@@ -1,4 +1,4 @@
-FROM dunglas/frankenphp:1.5-php8.2.28-alpine
+FROM dunglas/frankenphp:php8.2-alpine
 
 # Install dependencies using apk (Alpine's package manager)
 RUN apk update && apk add --no-cache \
@@ -23,6 +23,9 @@ RUN apk update && apk add --no-cache \
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
+    
+# Set user (if needed)
+USER root
 
 # Copy entrypoint script
 COPY deploy/entrypoint.sh /entrypoint.sh
@@ -43,9 +46,6 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
     && chmod +x install.sh \
     && chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
-
-# Set user (if needed)
-USER root
 
 # Run entrypoint on container start
 CMD ["/entrypoint.sh"]
