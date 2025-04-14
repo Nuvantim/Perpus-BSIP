@@ -9,4 +9,4 @@ if [ ! -f /var/www/html/.installed ]; then
 fi
 
 # Memulai FrankenPHP
-exec /usr/local/bin/frankenphp run serve --document-root=/var/www/html/public --port=8989 --worker
+exec /usr/local/bin/frankenphp -r /var/www/html/public -l 8989 -v
