@@ -37,4 +37,5 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Start entrypoint
+EXPOSE 8989
 CMD ["/entrypoint.sh"]
