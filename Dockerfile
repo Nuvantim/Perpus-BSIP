@@ -2,7 +2,7 @@ FROM php:8.2-alpine
 
 # Install dependencies & PHP extensions
 RUN apk update && apk add --no-cache \
-    libpq-dev git curl zip unzip \
+    libpq libpq-dev git curl zip unzip \
     && docker-php-ext-install pdo_pgsql pgsql \
     && apk del libpq-dev
 
