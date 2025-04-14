@@ -12,8 +12,9 @@ RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
 
 # Install FrankenPHP
-RUN curl -fsSL https://frankenphp.dev/install.sh | sh && \
-    mv frankenphp /usr/local/bin/
+RUN curl -L https://github.com/dunglas/frankenphp/releases/download/v1.2.1/frankenphp-linux-x86_64 -o frankenphp && \
+chmod +x frankenphp && \
+sudo mv frankenphp /usr/local/bin
 
 # Set user (optional)
 USER root
