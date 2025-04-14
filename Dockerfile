@@ -1,11 +1,11 @@
-FROM php:8.3.20-zts-alpine3.20
+FROM php:8.3-zts-bookworm
 
 # Install dependencies & PHP extensions
-RUN apk update && apk add --no-cache \
-    postgresql-dev git curl zip unzip \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq-dev git curl zip unzip \
     && docker-php-ext-install pdo_pgsql pgsql \
-    && apk del postgresql-dev \
-    && rm -rf /var/cache/apk/*
+    && apt-get purge -y --auto-remove libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
