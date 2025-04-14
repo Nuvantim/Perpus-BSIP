@@ -33,9 +33,9 @@ services:
       - laravel-network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+      interval: 2s
+      timeout: 2s
+      retries: 2
 
 volumes:
   postgres-data:
