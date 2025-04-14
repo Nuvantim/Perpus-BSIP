@@ -1,20 +1,20 @@
 FROM php:8.2-alpine
 
-# Install Package
+# Install dependencies & PHP extensions
 RUN apk update && apk add --no-cache \
-    libpq-dev \
-    git curl zip unzip \
+    libpq-dev git curl zip unzip \
     && docker-php-ext-install pdo_pgsql pgsql \
+    && apk del libpq-dev
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
 
-#Install Frankenphp
-RUN curl https://frankenphp.dev/install.sh | sh && \
+# Install FrankenPHP
+RUN curl -fsSL https://frankenphp.dev/install.sh | sh && \
     mv frankenphp /usr/local/bin/
-    
-# Set user (if needed)
+
+# Set user (optional)
 USER root
 
 # Copy entrypoint script
@@ -23,7 +23,6 @@ RUN chmod +x /entrypoint.sh
 
 # Copy FrankenPHP configuration
 COPY deploy/frankenphp.json /etc/frankenphp.json
-RUN chmod +x /etc/frankenphp.json
 
 # Set working directory
 WORKDIR /var/www/html
@@ -34,8 +33,8 @@ COPY . .
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
-    && chmod +x install.sh \
+    && chmod +x install.sh || true \
     && chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Run entrypoint on container start
+# Start entrypoint
 CMD ["/entrypoint.sh"]
