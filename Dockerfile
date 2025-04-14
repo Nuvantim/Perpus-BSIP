@@ -1,4 +1,4 @@
-FROM php:8.1-alpine3.21
+FROM dunglas/frankenphp:php8.3.8-alpine
 
 # Install dependencies & PHP extensions
 RUN apk update && apk add --no-cache \
