@@ -1,4 +1,4 @@
-FROM dunglas/frankenphp:php8.3.8-alpine
+FROM php:8.3.8-alpine
 
 # Install dependencies & PHP extensions
 RUN apk update && apk add --no-cache \
@@ -14,7 +14,7 @@ RUN curl -sS https://getcomposer.org/installer | php && \
 # Install FrankenPHP
 RUN curl -L https://github.com/dunglas/frankenphp/releases/download/v1.2.1/frankenphp-linux-x86_64 -o frankenphp && \
 chmod +x frankenphp && \
-sudo mv frankenphp /usr/local/bin
+mv frankenphp /usr/local/bin
 
 # Set user (optional)
 USER root
