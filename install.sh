@@ -12,15 +12,17 @@ rm -rf /var/www/html/vendor && \
 # Install production dependencies only
 composer install --no-dev --optimize-autoloader && \
 
-# Fresh migrate and seed the database (force to skip confirmation)
+# Migrate database
 php artisan migrate:fresh --seed --force && \
 
-# Clear and rebuild Laravel caches
+# Generate application key first
+php artisan key:generate && \
+
+# Then clear and rebuild Laravel caches
 php artisan config:cache && \
 php artisan event:cache && \
 php artisan route:cache && \
 php artisan view:cache && \
 
-# Final application setup
-php artisan storage:link && \
-php artisan key:generate
+# Final application setup 
+php artisan storage:link
