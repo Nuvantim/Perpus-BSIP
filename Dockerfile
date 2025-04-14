@@ -1,5 +1,11 @@
 FROM php:8.2-alpine
 
+# Install Package
+RUN apk update && apk add --no-cache \
+    libpq-dev \
+    git curl zip unzip \
+    && docker-php-ext-install pdo_pgsql pgsql \
+
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
@@ -18,13 +24,6 @@ RUN chmod +x /entrypoint.sh
 # Copy FrankenPHP configuration
 COPY deploy/frankenphp.json /etc/frankenphp.json
 RUN chmod +x /etc/frankenphp.json
-
-# Install Package php
-RUN apk update && apk add --no-cache \
-    libpq-dev \
-    git curl zip unzip \
-    && docker-php-ext-install pdo_pgsql pgsql \
-    && apk del libpq-dev
 
 # Set working directory
 WORKDIR /var/www/html
