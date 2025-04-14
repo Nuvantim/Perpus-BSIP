@@ -9,4 +9,4 @@ if [ ! -f /var/www/html/.installed ]; then
 fi
 
 # Memulai FrankenPHP
-exec /usr/local/bin/frankenphp php-server -r /var/www/html/public -l :8989 -v
+exec /usr/local/bin/frankenphp php-server -r /var/www/html/public -l :8989
