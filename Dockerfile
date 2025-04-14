@@ -1,10 +1,13 @@
-FROM php:8.2-alpine
+FROM php:8.1.32-zts-bookworm
 
 # Install dependencies & PHP extensions
-RUN apk update && apk add --no-cache \
-    libpq libpq-dev git curl zip unzip \
+RUN apt-get update && apt-get install -y \
+    libpq-dev git curl zip unzip \
     && docker-php-ext-install pdo_pgsql pgsql \
-    && apk del libpq-dev
+    && apt-get purge -y libpq-dev \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
@@ -20,9 +23,6 @@ USER root
 # Copy entrypoint script
 COPY deploy/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-
-# Copy FrankenPHP configuration
-COPY deploy/frankenphp.json /etc/frankenphp.json
 
 # Set working directory
 WORKDIR /var/www/html
