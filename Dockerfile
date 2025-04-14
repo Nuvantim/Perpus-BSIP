@@ -1,11 +1,12 @@
-FROM php:8.3-zts-bookworm
+FROM php:8.2.28-bookworm
 
 # Install dependencies & PHP extensions
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev git curl zip unzip \
     && docker-php-ext-install pdo_pgsql pgsql \
     && apt-get purge -y --auto-remove libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
