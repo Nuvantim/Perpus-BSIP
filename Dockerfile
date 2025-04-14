@@ -1,4 +1,4 @@
-FROM php:8.3.8-alpine
+FROM php:8.3.8-alpine3.20
 
 # Install dependencies & PHP extensions
 RUN apk update && apk add --no-cache \
