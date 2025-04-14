@@ -2,15 +2,9 @@ FROM php:8.2.28-bookworm
 
 # Install dependencies & PHP extensions
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libpq-dev \ 
-    libpq5    \
-    && docker-php-ext-install pdo_pgsql pgsql \
-    && apt-get purge -y --auto-remove libpq-dev \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN docker-php-ext-install pdo_pgsql pgsql \
-    && docker-php-ext-enable pdo_pgsql pgsql
+    git curl zip unzip libpq-dev libpq5 && \
+    docker-php-ext-install pdo pdo_pgsql && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
