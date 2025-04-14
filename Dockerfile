@@ -38,7 +38,7 @@ COPY . .
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
     && chmod +x install.sh || true \
-    && chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
+    && chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/resources/views /var/www/html/public
 
 # Start entrypoint
 EXPOSE 8989
