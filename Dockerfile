@@ -11,8 +11,8 @@ RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
 
 #Install Frankenphp
-RUN curl https://frankenphp.dev/install.sh | sh
-mv frankenphp /usr/local/bin/
+RUN curl https://frankenphp.dev/install.sh | sh && \
+    mv frankenphp /usr/local/bin/
     
 # Set user (if needed)
 USER root
