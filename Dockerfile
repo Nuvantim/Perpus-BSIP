@@ -1,8 +1,12 @@
-FROM dunglas/frankenphp:php8.2-alpine
+FROM php:8.2-alpine
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
+
+#Install Frankenphp
+curl https://frankenphp.dev/install.sh | sh
+mv frankenphp /usr/local/bin/
     
 # Set user (if needed)
 USER root
@@ -14,6 +18,13 @@ RUN chmod +x /entrypoint.sh
 # Copy FrankenPHP configuration
 COPY deploy/frankenphp.json /etc/frankenphp.json
 RUN chmod +x /etc/frankenphp.json
+
+# Install Package php
+RUN apk update && apk add --no-cache \
+    libpq-dev \
+    git curl zip unzip \
+    && docker-php-ext-install pdo_pgsql pgsql \
+    && apk del libpq-dev
 
 # Set working directory
 WORKDIR /var/www/html
