@@ -1,11 +1,12 @@
-FROM php:8.2-cli-alpine
+FROM php:8.2-cli-bookworm
 
 # Install dependencies & PHP extensions
-RUN apk add --no-cache --update git curl zip unzip postgresql-dev \
-    libpng-dev libjpeg-turbo-dev freetype-dev libzip-dev oniguruma-dev && \
+RUN apt-get update && apt-get install -y --no-install-recommends git curl zip unzip postgresql-server-dev-all \
+    libpng-dev libjpeg-dev libfreetype6-dev libzip-dev libonig-dev && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install pdo pdo_pgsql mbstring zip exif pcntl bcmath gd && \
-    rm -rf /var/cache/apk/*
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 
 # Install Composer
