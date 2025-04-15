@@ -1,16 +1,32 @@
-FROM php:8.2.28-bookworm
+FROM php:8.3.20-zts-alpine3.20
 
 # Install dependencies & PHP extensions
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    git curl zip unzip \
-    libpq-dev libpq5 \
-    libpng-dev libjpeg-dev libfreetype6-dev libzip-dev libonig-dev \
+RUN apk add --no-cache --update \
+    git \
+    curl \
+    zip \
+    unzip \
+    postgresql-dev \
+    postgresql-client \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    freetype-dev \
+    libzip-dev \
+    oniguruma-dev \
+    && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg \
     && \
     docker-php-ext-install \
-    pdo pdo_pgsql \
-    mbstring zip exif pcntl bcmath gd \
+    pdo \
+    pdo_pgsql \
+    mbstring \
+    zip \
+    exif \
+    pcntl \
+    bcmath \
+    gd \
     && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    rm -rf /var/cache/apk/*
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
@@ -36,9 +52,11 @@ COPY . .
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html \
-    && chmod +x install.sh || true \
-    && chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/resources/views /var/www/html/public
+&& find /var/www/html -type d -exec chmod 755 {} \; \
+&& find /var/www/html -type f -exec chmod 644 {} \; \
+&& chmod +x install.sh 2 >/dev/null || true \
+&& chmod -R 775 /var/www/html/storage \
+&& chmod -R 775 /var/www/html/bootstrap/cache
 
 # Start entrypoint
 EXPOSE 8989
