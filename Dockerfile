@@ -1,16 +1,12 @@
 FROM php:8.2-cli-alpine
 
 # Install dependencies & PHP extensions
-RUN apk add --no-cache --update \
-    git curl zip unzip \
-    postgresql-dev libpng-dev libjpeg-turbo-dev freetype-dev libzip-dev \
-    && \
-    docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && \
-    docker-php-ext-install pdo pdo_pgsql mbstring \
-    exif pcntl bcmath gd \
-    && \
+RUN RUN apk add --no-cache --update git curl zip unzip postgresql-dev \
+    libpng-dev libjpeg-turbo-dev freetype-dev libzip-dev oniguruma-dev && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install pdo pdo_pgsql mbstring zip exif pcntl bcmath gd && \
     rm -rf /var/cache/apk/*
+
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
