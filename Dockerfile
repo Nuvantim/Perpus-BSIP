@@ -1,7 +1,7 @@
 FROM php:8.2-cli-alpine
 
 # Install dependencies & PHP extensions
-RUN RUN apk add --no-cache --update git curl zip unzip postgresql-dev \
+RUN apk add --no-cache --update git curl zip unzip postgresql-dev \
     libpng-dev libjpeg-turbo-dev freetype-dev libzip-dev oniguruma-dev && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install pdo pdo_pgsql mbstring zip exif pcntl bcmath gd && \
