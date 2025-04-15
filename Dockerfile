@@ -1,22 +1,24 @@
-FROM php:8.3.20-zts-alpine3.20
+FROM php:8.2-cli-alpine
 
 # Install dependencies & PHP extensions
-RUN apk add --no-cache --update \
-    git \
-    curl \
-    zip \
-    unzip \
+RUN apk add --no-cache --virtual .build-deps \
     postgresql-dev \
-    postgresql-client \
     libpng-dev \
     libjpeg-turbo-dev \
     freetype-dev \
     libzip-dev \
     oniguruma-dev \
     && \
+    apk add --no-cache \
+    git \
+    curl \
+    zip \
+    unzip \
+    postgresql-client \
+    && \
     docker-php-ext-configure gd --with-freetype --with-jpeg \
     && \
-    docker-php-ext-install \
+    docker-php-ext-install -j$(nproc) \
     pdo \
     pdo_pgsql \
     mbstring \
@@ -26,7 +28,9 @@ RUN apk add --no-cache --update \
     bcmath \
     gd \
     && \
-    rm -rf /var/cache/apk/*
+    apk del --no-network .build-deps \
+    && \
+    rm -rf /tmp/* /var/cache/*
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
