@@ -10,7 +10,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./:/var/www/html
+      - ./:/app
     depends_on:
       db:
         condition: service_healthy
