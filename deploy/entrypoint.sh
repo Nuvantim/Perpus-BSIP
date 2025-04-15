@@ -4,9 +4,9 @@ set -e
 # Memeriksa apakah aplikasi perlu diinstal (menggunakan file penanda)
 if [ ! -f /var/www/html/.installed ]; then
     echo "Menjalankan instalasi pertama kali..."
-    touch /var/www/html/.installed
-    sh /var/www/html/install.sh
+    touch /app/.installed
+    sh /app/install.sh
 fi
 
 # Memulai FrankenPHP
-exec /usr/local/bin/frankenphp php-cli /var/www/html/artisan serve
+exec /usr/local/bin/frankenphp php-server -r /app -l :8000  --no-compress
