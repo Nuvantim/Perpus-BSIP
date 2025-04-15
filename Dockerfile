@@ -25,16 +25,14 @@ COPY deploy/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 # Set working directory
-WORKDIR /var/www/html
+WORKDIR /app
 
 # Copy application source
 COPY . .
 
 # Set permissions
-RUN chmod +x /var/www/html/install.sh
-RUN chmod -R 775 /var/www/html/
-RUN chmod -R 777 /var/www/html/public /var/www/html/storage
+RUN chmod +x /app/install.sh
+RUN chmod -R 775 /app
+RUN chmod -R 777 /app/public /app/storage
 
-# Start entrypoint
-EXPOSE 8000
 CMD ["/entrypoint.sh"]
