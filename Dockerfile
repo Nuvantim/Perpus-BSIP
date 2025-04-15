@@ -14,7 +14,7 @@ RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
 
 # Install FrankenPHP
-RUN curl -L https://github.com/dunglas/frankenphp/releases/download/v1.2.1/frankenphp-linux-x86_64 -o frankenphp && \
+RUN curl -L https://github.com/dunglas/frankenphp/releases/download/v1.2.3/frankenphp-linux-x86_64 -o frankenphp && \
 chmod +x frankenphp && \
 mv frankenphp /usr/local/bin
 
