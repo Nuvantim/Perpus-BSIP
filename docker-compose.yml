@@ -8,9 +8,9 @@ services:
     pull_policy: never
     restart: unless-stopped
     ports:
-      - "8000:8000"
+      - "8000:80"
     volumes:
-      - ./:/app
+      - ./:/var/www/html
     depends_on:
       db:
         condition: service_healthy
