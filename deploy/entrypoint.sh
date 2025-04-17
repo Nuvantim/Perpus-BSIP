@@ -7,6 +7,3 @@ if [ ! -f /var/www/html/.installed ]; then
     touch /app/.installed
     sh /app/install.sh
 fi
-
-# Memulai FrankenPHP
-exec /usr/local/bin/frankenphp php-server -r /app -l :8000  --no-compress
