@@ -1,0 +1,8 @@
+{
+    "address": "8989",
+    "workers": "auto",
+    "document_root": "/var/www/html/public",
+    "max_requests": 500,
+    "access_log": "/var/log/frankenphp/access.log",
+    "error_log": "/var/log/frankenphp/error.log"
+}
