@@ -25,5 +25,5 @@ fi
 php-fpm82 &
 
 # Start Nginx as the main foreground process
-exec nginx -g "daemon off;"
-echo "Nginx is running..."
+#exec nginx -g "daemon off;"
+php artisan serve
