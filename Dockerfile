@@ -16,9 +16,6 @@ RUN ln -s /usr/bin/php82 /usr/bin/php
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
 
-# Set user (optional)
-USER root
-
 # Copy entrypoint script
 COPY deploy/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
@@ -36,8 +33,10 @@ COPY . .
 
 # Set permissions
 RUN adduser -D -u 1000 -G www-data www-data
+RUN sed -i 's/^user = nobody$/user = www-data/' /etc/php/8.2/fpm/pool.d/www.conf
+RUN sed -i 's/^group = nogroup$/group = www-data/' /etc/php/8.2/fpm/pool.d/www.conf
+RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod +x /var/www/html/install.sh
-RUN chown -R nobody:nobody /var/www/html/storage /var/www/html/bootstrap/cache
 
 CMD ["/entrypoint.sh"]
