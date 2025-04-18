@@ -2,7 +2,7 @@ FROM nginx:1.26.3-alpine3.20
 
 # Install dependencies & PHP extensions
 RUN apk update && apk upgrade && \
-    apk add curl git unzip php82 php82-fpm php82-pdo php82-pdo_pgsql php82-openssl php82-mbstring php82-tokenizer php82-json php82-fileinfo php82-ctype php82-curl php82-phar php82-session php82-dom php82-xml openrc && \
+    apk add curl git unzip php82 php82-fpm php82-pdo php82-pdo_pgsql php82-openssl php82-mbstring php82-tokenizer php82-json php82-fileinfo php82-ctype php82-curl php82-phar php82-session php82-dom php82-xml php82-xmlwriter openrc && \
     rm -rf /var/cache/apk/*
 
 # Create openrc
@@ -35,9 +35,10 @@ WORKDIR /var/www/html
 COPY . .
 
 # Set permissions
+RUN adduser -D -u 1000 -G www-data www-data
 RUN chown -R www-data.www-data /var/www/html
 RUN chmod +x /var/www/html/install.sh
 RUN chmod -R 777 /var/www/html/storage
-RUN chomd -R 777 /var/www/html/bootstrap/cache
+RUN chmod -R 777 /var/www/html/bootstrap/cache
 
 CMD ["/entrypoint.sh"]
