@@ -31,10 +31,4 @@ WORKDIR /var/www/html
 # Copy application source
 COPY . .
 
-# Set permissions
-RUN adduser -D -u 1000 -G www-data www-data
-RUN chown -R www-data:www-data /var/www/html
-RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-RUN chmod +x /var/www/html/install.sh
-
 CMD ["/entrypoint.sh"]
