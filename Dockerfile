@@ -35,8 +35,9 @@ WORKDIR /var/www/html
 COPY . .
 
 # Set permissions
+RUN chown -R www-data.www-data /var/www/html
 RUN chmod +x /var/www/html/install.sh
-
-RUN apk add --no-cache shadow \ && groupadd -g 1000 www-data \ && useradd -u 1000 -g www-data www-data \ && chown -R www-data:www-data /var/www/html \ && chmod -R 775 /var/www/html/storage \ && chmod -R 775 /var/www/html/bootstrap/cache
+RUN chmod -R 777 /var/www/html/storage
+RUN chomd -R 777 /var/www/html/bootstrap/cache
 
 CMD ["/entrypoint.sh"]
