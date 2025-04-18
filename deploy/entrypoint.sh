@@ -3,6 +3,8 @@ set -e
 
 # Configure PHP-FPM to run in non-daemon mode
 sed -i 's/;daemonize = yes/daemonize = no/g' /etc/php82/php-fpm.conf
+sed -i 's/^user = nobody$/user = www-data/' /etc/php/8.2/fpm/pool.d/www.conf
+sed -i 's/^group = nogroup$/group = www-data/' /etc/php/8.2/fpm/pool.d/www.conf
 
 # Check if the application needs to be installed (using a flag file)
 if [ ! -f /var/www/html/.installed ]; then
