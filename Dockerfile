@@ -2,7 +2,7 @@ FROM nginx:1.26.3-alpine3.20
 
 # Install dependencies & PHP extensions
 RUN apk update && apk upgrade && \
-    apk add curl git unzip php82 php82-fpm php82-pdo php82-pdo_pgsql php82-openssl php82-mbstring php82-tokenizer php82-json php82-fileinfo php82-ctype php82-curl openrc && \
+    apk add curl git unzip php82 php82-fpm php82-pdo php82-pdo_pgsql php82-openssl php82-mbstring php82-tokenizer php82-json php82-fileinfo php82-ctype php82-curl php82-phar php82-session php82-dom php82-xml openrc && \
     rm -rf /var/cache/apk/*
 
 # Create openrc
@@ -24,7 +24,7 @@ COPY deploy/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 #Copy Nginx Configuration
-COPY deploy/nginx.conf /etc/nginx/nginx.conf
+# COPY deploy/nginx.conf /etc/nginx/nginx.conf
 COPY deploy/default.conf /etc/nginx/conf.d/default.conf
 
 # Set working directory
