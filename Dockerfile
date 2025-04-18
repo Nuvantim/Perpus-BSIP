@@ -24,7 +24,7 @@ COPY deploy/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 #Copy Nginx Configuration
-# COPY deploy/nginx.conf /etc/nginx/nginx.conf
+COPY deploy/nginx.conf /etc/nginx/nginx.conf
 COPY deploy/default.conf /etc/nginx/conf.d/default.conf
 
 # Set working directory
