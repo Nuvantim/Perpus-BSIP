@@ -36,9 +36,8 @@ COPY . .
 
 # Set permissions
 RUN adduser -D -u 1000 -G www-data www-data
-RUN chown -R www-data.www-data /var/www/html
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && \
+    chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod +x /var/www/html/install.sh
-RUN chmod -R 777 /var/www/html/storage
-RUN chmod -R 777 /var/www/html/bootstrap/cache
 
 CMD ["/entrypoint.sh"]
