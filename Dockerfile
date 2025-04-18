@@ -33,8 +33,6 @@ COPY . .
 
 # Set permissions
 RUN adduser -D -u 1000 -G www-data www-data
-RUN sed -i 's/^user = nobody$/user = www-data/' /etc/php/8.2/fpm/pool.d/www.conf
-RUN sed -i 's/^group = nogroup$/group = www-data/' /etc/php/8.2/fpm/pool.d/www.conf
 RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod +x /var/www/html/install.sh
