@@ -31,4 +31,6 @@ WORKDIR /var/www/html
 # Copy application source
 COPY . .
 
-CMD ["/entrypoint.sh"]
+#CMD ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
