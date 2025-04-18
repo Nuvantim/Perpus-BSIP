@@ -9,6 +9,9 @@ services:
     restart: unless-stopped
     ports:
       - "8000:80"
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
     volumes:
       - ./:/var/www/html
     depends_on:
