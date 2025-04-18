@@ -8,10 +8,7 @@ services:
     pull_policy: never
     restart: unless-stopped
     ports:
-      - "8000:80"
-    environment:
-      - NGINX_HOST=localhost
-      - NGINX_PORT=80
+      - "8000:8000"
     volumes:
       - ./:/var/www/html
     depends_on:
