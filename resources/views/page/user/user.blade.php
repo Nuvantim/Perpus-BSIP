@@ -6,29 +6,32 @@ Pengguna Sistem
 Daftar Pengguna
 @endsection
 @section('content')
-<table id="example1" class="table table-bordered table-striped">
-	<thead>
-		<tr>
-			<th>No</th>
-			<th>Nama</th>
-      <th>Email</th>
-      <th>Jabatan</th>
-      <th>Aksi</th>
-		</tr>	
-	</thead>
-	<tbody>
+<div class="row table-responsive">
+    <table id="example1" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Email</th>
+            <th>Jabatan</th>
+            <th>Aksi</th>
+        </tr>   
+    </thead>
+    <tbody>
     @foreach ($usr as $usr)
-		<tr>
-			<td>{{ $loop->iteration }}</td>
-      <td>{{ $usr->name }}</td>
-      <td>{{ $usr->email }}</td>
-      <td>{{ optional($usr->roles->first())->name }}</td>
-      <td>
-        <button class="btn icon icon-left btn-outline-warning" data-toggle="modal"
-            data-target="#update_modal{{ $usr->id }}"><i
-                data-feather="alert-triangle" class="fas fa-edit"></i></button>
-    </td>
-</tr>
+        <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $usr->name }}</td>
+            <td>{{ $usr->email }}</td>
+            <td>{{ optional($usr->roles->first())->name }}</td>
+            <td>
+            <button class="btn icon icon-left btn-outline-warning" data-toggle="modal"
+                data-target="#update_modal{{ $usr->id }}"><i
+                    data-feather="alert-triangle" class="fas fa-edit"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</div>
 {{-- modal  update rak --}}
 <div class="modal" id="update_modal{{ $usr->id }}">
     <div class="modal-dialog">
