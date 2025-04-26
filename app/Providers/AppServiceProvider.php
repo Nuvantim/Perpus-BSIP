@@ -21,11 +21,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         /*
-            disable comment if deployment
+            enable comment if development
         */ 
 
-        // if (env('APP_ENV') !== 'production') {
-        //     URL::forceScheme('https');
-        // }
+         if (env('APP_ENV') !== 'production') {
+             URL::forceScheme('https');
+         }
     }
 }
