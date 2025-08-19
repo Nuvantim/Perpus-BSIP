@@ -74,7 +74,7 @@ Info Buku
     </div>
   </div>
 </div>
-@role('petugas')
+@role('Petugas')
 <div class="col-md-2">
   <form action="{{ route('buku.edit',$buku->id) }}">
     <button class="btn btn-block btn-warning"><i class="fas fa-edit"></i>Edit</button>
