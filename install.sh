@@ -1,14 +1,5 @@
 #!/bin/bash
 
-# Run composer to install all dependencies
-composer install && \
-
-# Build Laravel blueprint components
-php artisan blueprint:build && \
-
-# Remove existing vendor directory
-rm -rf /var/www/html/vendor && \
-
 # Install production dependencies only
 composer install --no-dev --optimize-autoloader && \
 
