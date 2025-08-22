@@ -27,7 +27,7 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg"></p>
 
-      <form action="/autentikasi" method="POST">
+      <form action="{{ route('autenticate') }}" method="POST">
         @csrf
         <div class="input-group mb-3">
           <input type="email" class="form-control" 
