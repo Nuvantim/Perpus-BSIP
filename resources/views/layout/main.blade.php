@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Perpus BSIP RumBes | @yield('title')</title>
-
+  <link rel="icon" href="{{ asset('/icon/logo.png') }}" type="image/x-icon" />
+    
   {{-- select 2 --}}
   <link rel="stylesheet" href="{{ asset('/plugins/select2/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
