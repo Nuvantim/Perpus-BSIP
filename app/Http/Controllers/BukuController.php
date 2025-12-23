@@ -49,7 +49,7 @@ class BukuController extends Controller
         if($request->sampul)
         {
           $buku->sampul = $request->file('sampul')->hashName();
-          $request->file('sampul')->store('sampul');
+          $path = $request->file('sampul')->store('sampul', 'public');
         }
         $buku->save();
         return redirect()->route('buku.index')->with('alert',[
@@ -90,7 +90,7 @@ class BukuController extends Controller
             unlink($filepath);
           }
           $buku->sampul = $request->file('sampul')->hashName();
-          $request->file('sampul')->store('sampul');
+          $request->file('sampul')->store('sampul', 'public');
         }
         $buku->save();
         return redirect()->route('buku.index')->with('alert',[
@@ -142,7 +142,7 @@ class BukuController extends Controller
                 $buku->peroleh = $data[14];
                 $buku->save();
             }
-            fclose($handle); // Tutup file setelah selesai
+            fclose($handle);
         }
         return redirect()->route('buku.index')->with('alert',[
             'type' => 'success',
