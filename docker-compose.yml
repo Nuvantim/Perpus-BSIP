@@ -1,5 +1,5 @@
 services:
-  app:
+  app_perpus:
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,34 +12,33 @@ services:
     volumes:
       - ./:/var/www/html
     depends_on:
-      db:
+      db_perpus:
         condition: service_healthy
     networks:
-      - laravel-network
+      - perpus-network
 
-  db:
-    image: postgres:10.23-alpine
+  db_perpus:
+    image: mariadb
     container_name: perpus_db
-    restart: unless-stopped
+    restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin123
-      POSTGRES_DB: perpus
+      MARIADB_ROOT_PASSWORD: admin123
+      MARIADB_DATABASE: perpus
     ports:
-      - "5432:5432"
+      - "3306:3306"
     volumes:
-      - postgres-data:/var/lib/postgresql/data
-    networks:
-      - laravel-network
+      - mysql-data:/var/lib/mariadb
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - perpus-network
 
 volumes:
-  postgres-data:
+  mysql-data:
 
 networks:
-  laravel-network:
+  perpus-network:
     driver: bridge

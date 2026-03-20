@@ -1,0 +1,6 @@
+vendor/
+.git/
+.env
+.env.example
+.gitignore
+.gitattributes
