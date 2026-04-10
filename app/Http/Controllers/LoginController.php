@@ -25,16 +25,20 @@ class LoginController extends Controller
             $request->session()->regenerate();
             return redirect()->intended('home');
         }else{
-            return redirect()->back()->with('alert',[
-                'type' => 'error',
-                'message' => 'Login Gagal !'
-              ]);;
+            return redirect()->back()->withErrors([ 'email' => 'Incorrect email or password', ])->onlyInput('email');
         }
     }
 
     public function Logout()
     {
         Auth::logout();
+        /*
+        Sesuaikan PATH proxy
+        */
+
+        // return redirect('/perpus');
+
+
         return redirect('/');
     }
 
